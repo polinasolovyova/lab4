@@ -1,6 +1,21 @@
-<?php
+<?php 
 
     $xml = simplexml_load_file("src/data/users.xml") or die("Error: Cannot create object");
+
+    if (isset($_GET['id'])) {
+
+        $id = $_GET['id'];
+
+        foreach ($xml->user as $user)  {
+            if ($user['id'] == $id) {
+                $name = $user->name;
+                $tag = $user->tag;
+                break;
+            }
+
+        }
+    }
+
 ?>
 
 <!DOCTYPE html>
@@ -18,7 +33,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin> 
     <link href="https://fonts.googleapis.com/css2?family=Jost&family=Montserrat:wght@600&display=swap" rel="stylesheet">
 
-    <title>My accounts</title>
+    <title>TOLKO</title>
 
 </head>
 
@@ -26,40 +41,42 @@
 
     <header>
 
-        <a id = "back" href = "index.php"> <span>back</span> </a>
+        <h1 id = "logo">TOLKO</h1>
+
+        <div class = "menu">
+
+            <img id = "hamburger" src = "src/icons/menu.svg">
+            
+            <div class="menu-content">
+                <a href = "create.php">create account</a>
+                <a href = "index.php">manage accounts</a>
+            </div>
+            
+        </div>
 
     </header>
 
-    <div>
-        <?php
+    <div class = "island" id = "profile">
 
-        foreach ($xml->user as $user) 
-        {
-        ?>
-            
-            <div class = "island" id = "account">
+        <div id = "bg"></div>
 
-                <div class= "info">
-                    <span>user: </span> <span class="account_name"> <?= $user->name ?></span>
-                    <span>id: </span> <span class="account_id"> <?= $user->tag ?></span>
-                </div>
-
-                <div class = "buttons">
-                    <a id = "button" href="index.php?id=<?= $user['id']?>">switch</a>
-                    <a id = "button_del" href="delete.php?id=<?= $user['id']?>">delete</a>
-                </div>
-
+        <div id = "pfp">
+            <div class = "user_name"> 
+                <?php echo $name ?> 
+                <div class = "id" > @<?php echo $tag ?> </div>
             </div>
+        </div>
 
-        <?php
-        }
+        <div id = "line">
+            <div class = "name_description">
+                description
+                <div class = "description">
+                    lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. 
+                </div>
+            </div>
+            
+        </div>
 
-        ?>
-       
-    </div>
-
-    <div id = "create">
-        <a id = "button" href="create.php">create a new account</a>
     </div>
 
 </body>
