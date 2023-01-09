@@ -16,5 +16,5 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
     }
     
     $xml->saveXML('src/data/users.xml');
-    header('location:list.php');
+    header('location:index.php');
 }
